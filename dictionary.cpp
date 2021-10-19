@@ -25,6 +25,19 @@ int Dictionary::equal(std::string &a, std::string &b)
     return eql;
 
 }
+std::string Dictionary::find_word(std::string &word)
+{
+    int max = 0;
+    std::string poss_word;
+    for(int i = 0; i < this->word_count; i++)
+    {
+        int tmp = equal(main_arr[i], word);
+        if(tmp == word.length())
+            return tmp;
+        
+    }
+
+}
 void Dictionary::add_word(std::string &word)
 {
     std::string *tmp;

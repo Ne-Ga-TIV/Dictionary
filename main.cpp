@@ -21,7 +21,7 @@ char get_answer()
 }
 std::string check_word(std::string &word, Dictionary &dic)
 {
-    if(dic.find_word())
+    
 }
 int main()
 {
