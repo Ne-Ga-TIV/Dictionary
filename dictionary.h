@@ -1,7 +1,8 @@
 #ifndef INCLUDE
-#include <string>
+#include <iostream>
 #include <fstream>
-#define INCLUDE
+#include <exception>
+#include <string>
 #endif
 class Dictionary
 {

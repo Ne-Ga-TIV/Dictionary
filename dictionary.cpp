@@ -5,26 +5,26 @@ Dictionary::Dictionary()
     dic >> this->word_count;
     capacity = word_count + 3;
     std::string* diction = new std::string [capacity];
-    for(int i = 0; i < word_count; i++)
+    for(size_t i = 0; i < word_count; i++)
         dic >> diction[i];
     dic.close();
 }
 void Dictionary::copy(std::string *arr)
 {
-    for(int i = 0; i < word_count; i++)
+    for(size_t i = 0; i < word_count; i++)
         arr[i] = main_arr[i];
 }
 int Dictionary::equal(std::string &a, std::string &b)
 {
-    int size = a.length() > b.length() ? b.length() : a.length(),
+    size_t size = a.length() > b.length() ? b.length() : a.length(),
     eql = 0;
-    for(int i = 0; i < size; i++)
+    for(size_t i = 0; i < size; i++)
         if(tolower(a[i]) == b[i])
             eql++;
     
     return eql;
 
-} 
+}
 void Dictionary::add_word(std::string &word)
 {
     std::string *tmp;
@@ -43,7 +43,11 @@ void Dictionary::add_word(std::string &word)
 
 Dictionary::~Dictionary()
 {
-    
+    std::ofstream fout("dictionary.txt");
+
+    for(size_t i = 0; i < word_count; i++)
+        fout << main_arr[i];
     
     delete [] main_arr;
+    main_arr = nullptr;
 }
