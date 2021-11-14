@@ -3,10 +3,13 @@ Dictionary::Dictionary()
 {
     std::ifstream dic("dictionary.txt");
     dic >> this->word_count;
+
     capacity = word_count + 3;
-    std::string* diction = new std::string [capacity];
+    main_arr = new std::string [capacity];
+
     for(size_t i = 0; i < word_count; i++)
-        dic >> diction[i];
+        dic >> main_arr[i];
+
     dic.close();
 }
 void Dictionary::copy(std::string *arr)
@@ -31,35 +34,43 @@ std::string Dictionary::find_word(std::string &word)
     std::string poss_word;
     for(int i = 0; i < this->word_count; i++)
     {
-        int tmp = equal(main_arr[i], word);
-        if(tmp == word.length())
-            return tmp;
-        
+        int tmp = equal(word, main_arr[i]);
+
+        if(tmp == main_arr[i].length()){
+            return word;
+        }
+        if(tmp > max)
+        {
+            max = tmp;
+            poss_word = main_arr[i];
+        }
     }
+    return poss_word;
 
 }
 void Dictionary::add_word(std::string &word)
 {
     std::string *tmp;
-    word_count++;
-    if(capacity == word_count)
+
+    if(capacity == word_count+1)
     {
         capacity += 3;
         tmp = new std::string [capacity];
+        copy(tmp);
+        delete [] main_arr;
+        main_arr = tmp;
     }
-    copy(tmp);
-    delete [] main_arr;
-    main_arr = tmp;
     main_arr[word_count] = word;
-    tmp = nullptr;
+    word_count++;
+    
 }
 
 Dictionary::~Dictionary()
 {
     std::ofstream fout("dictionary.txt");
-
+    fout << word_count << '\n';
     for(size_t i = 0; i < word_count; i++)
-        fout << main_arr[i];
+        fout << main_arr[i] << ' ';
     
     delete [] main_arr;
     main_arr = nullptr;
